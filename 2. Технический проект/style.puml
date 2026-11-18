@@ -1,0 +1,19 @@
+!$PERSON_LEGEND_TEXT = "Пользователь"
+!$SYSTEM_LEGEND_TEXT = "Наша система"
+!$EXTERNAL_SYSTEM_LEGEND_TEXT = "Внешняя система"
+!$SYSTEM_BOUNDARY_LEGEND_TEXT = "Граница системы"
+!$CONTAINER_LEGEND_TEXT = "Приложение или хранилище"
+!$CONTAINER_BOUNDARY_LEGEND_TEXT = "Граница приложения"
+!$COMPONENT_LEGEND_TEXT = "Компонент приложения"
+!$NO_LAY_ROTATE = 1
+
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam roundcorner 6
+skinparam wrapWidth 210
+skinparam wrapMessageWidth 165
+skinparam nodesep 45
+skinparam ranksep 70
+skinparam dpi 130

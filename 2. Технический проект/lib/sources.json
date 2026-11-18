@@ -1,0 +1,63 @@
+[
+  {
+    "path": "C4/C4.puml",
+    "url": "https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/f998c46833daac592f3283ff08d7b8cd7e1558fb/C4.puml",
+    "upstream_sha256": "ab12c815f4a7d12e90e3583a0967ffb88c3617803810d5569b06e136d701afc6",
+    "sha256": "3e3fa552102ff9aca4d001af21a688739bb82b2084f137c8040276d9c87d8d34",
+    "local_change": "Three legacy variable names use the $ prefix required by PlantUML 1.2026.10."
+  },
+  {
+    "path": "C4/C4_Context.puml",
+    "url": "https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/f998c46833daac592f3283ff08d7b8cd7e1558fb/C4_Context.puml",
+    "upstream_sha256": "7e0b039f1a669d7fc3d9f26e806e2387327781c92718764902ac30efe479ae47",
+    "sha256": "7e0b039f1a669d7fc3d9f26e806e2387327781c92718764902ac30efe479ae47"
+  },
+  {
+    "path": "C4/C4_Container.puml",
+    "url": "https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/f998c46833daac592f3283ff08d7b8cd7e1558fb/C4_Container.puml",
+    "upstream_sha256": "219f235cd59307763aa00dfb8667d9c719c1fa1ab3f5e7b36cdc33ae3f363b84",
+    "sha256": "219f235cd59307763aa00dfb8667d9c719c1fa1ab3f5e7b36cdc33ae3f363b84"
+  },
+  {
+    "path": "C4/C4_Component.puml",
+    "url": "https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/f998c46833daac592f3283ff08d7b8cd7e1558fb/C4_Component.puml",
+    "upstream_sha256": "c20a5cff063862cdb8d2955cca37e9225bf24f4b8b19bbca21774d5c7d3a5602",
+    "sha256": "c20a5cff063862cdb8d2955cca37e9225bf24f4b8b19bbca21774d5c7d3a5602"
+  },
+  {
+    "path": "C4/LICENSE",
+    "url": "https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/f998c46833daac592f3283ff08d7b8cd7e1558fb/LICENSE",
+    "upstream_sha256": "72b90d259fedc994910705546590d07ab5bc850581f89e5a4d96ee4052e6747f",
+    "sha256": "72b90d259fedc994910705546590d07ab5bc850581f89e5a4d96ee4052e6747f"
+  },
+  {
+    "path": "icons/common.puml",
+    "url": "https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582/common.puml",
+    "upstream_sha256": "9e1cf3f12e8933ab7fe4c7111758c68b35be29409de4418fd8aef06498587395",
+    "sha256": "9e1cf3f12e8933ab7fe4c7111758c68b35be29409de4418fd8aef06498587395"
+  },
+  {
+    "path": "icons/devicons2/python.puml",
+    "url": "https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582/devicons2/python.puml",
+    "upstream_sha256": "4c86b9f0c6eda6759f12a090eb4f783fc1274e587ab6b41b4adc3fe47a4cfca1",
+    "sha256": "4c86b9f0c6eda6759f12a090eb4f783fc1274e587ab6b41b4adc3fe47a4cfca1"
+  },
+  {
+    "path": "icons/devicons2/django.puml",
+    "url": "https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582/devicons2/django.puml",
+    "upstream_sha256": "7ed068c870ccb0c9ca124fa468ff95bba6d7f37a6f78f820b3fbdb08f0990c2a",
+    "sha256": "7ed068c870ccb0c9ca124fa468ff95bba6d7f37a6f78f820b3fbdb08f0990c2a"
+  },
+  {
+    "path": "icons/devicons2/postgresql.puml",
+    "url": "https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582/devicons2/postgresql.puml",
+    "upstream_sha256": "ae619edd5dbc2e7164bb08bce2c07865b88b016154b35e0130e1bf0e04a1672a",
+    "sha256": "ae619edd5dbc2e7164bb08bce2c07865b88b016154b35e0130e1bf0e04a1672a"
+  },
+  {
+    "path": "icons/LICENSE.md",
+    "url": "https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/fa3f885dbd45c9cd0cdf6c0e5e4fb51ec8b76582/LICENSE.md",
+    "upstream_sha256": "644d5e6eceabf73ae6bda489b23ddbc32d56c5118557a6bc88b705383342f503",
+    "sha256": "644d5e6eceabf73ae6bda489b23ddbc32d56c5118557a6bc88b705383342f503"
+  }
+]

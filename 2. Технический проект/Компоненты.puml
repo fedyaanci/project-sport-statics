@@ -1,0 +1,62 @@
+@startuml
+!define RELATIVE_INCLUDE "."
+!include style.puml
+!include lib/C4/C4_Component.puml
+!include lib/icons/devicons2/django.puml
+!include lib/icons/devicons2/python.puml
+!include lib/icons/devicons2/postgresql.puml
+
+title Спортивная статистика | L3: Компоненты веб-приложения
+LAYOUT_TOP_DOWN()
+UpdateLegendTitle("Легенда")
+AddElementTag("R1", $bgColor="#FFF7ED", $fontColor="#63320A", $borderColor="#D97706", $borderThickness="2", $legendText="R1: первый релиз")
+AddElementTag("R2", $bgColor="#F5F3FF", $fontColor="#33266B", $borderColor="#8B5CF6", $borderThickness="2", $legendText="R2: второй релиз")
+
+Person(user, "Пользователь в браузере", "Действует в рамках назначенных прав")
+ContainerDb(db, "База данных", "PostgreSQL 18 / Psycopg 3", "Одна БД из L2", $sprite="postgresql")
+Container(files, "Файлы материалов [R1]", "Закрытый каталог сервера", "То же файловое хранилище, что на L2", $tags="R1")
+System_Ext(source, "Внешняя спортивная база [R2]", "Поставщик пакета импорта", $tags="R2")
+
+Container_Boundary(web, "Веб-приложение | Python / Django") {
+    Component(pages, "Страницы и JSON", "Django views / forms / templates", "Принимает команды и запросы; выводит HTML, JSON, ошибки и конфликт версии", $sprite="django")
+    Component(access, "Аккаунты и доступ", "Django Auth / Python", "Вход, сеансы, подтверждение почты, назначения ролей и область доступа")
+    Component(competitions, "Соревнования и составы", "Python", "Сезоны, допуск, расписание и подтверждённые составы; архив с R1")
+    Component(commands, "Изменения матча", "Python / transaction.atomic", "Проверяет действие, ключ повтора и версию. Блокирует матч, сохраняет действие и историю", $sprite="python")
+    Component(protocols, "Протоколы и публикация", "Python", "Создаёт версию протокола, подтверждает её и открывает официальную корректировку")
+    Component(statistics, "Чтение статистики", "Python / SQL-агрегации", "Предварительное табло, официальные показатели и фильтры; сравнения с R1")
+    Component(materials, "Материалы [R1]", "Python", "Черновик, параметры, задание, готовая версия и публикация; прогноз с R2", $tags="R1")
+    Component(media, "Видео и фрагменты [R1]", "Python", "Загрузка, задание обработки, связь с действием и проверка границ фрагмента", $tags="R1")
+    Component(imports, "Адаптер импорта [R2]", "Python / HTTPS-клиент", "Пакет, внешние идентификаторы и конфликты; применение только после проверки", $tags="R2")
+    Component(orm, "Доступ к данным", "Django ORM / Psycopg 3", "Модели и запросы своих модулей. Общая транзакция для связанного изменения")
+}
+
+Rel(user, pages, "Отправляет форму или запрос табло", "HTTPS; HTML/JSON")
+Rel(pages, access, "Вход, сеансы и права")
+Rel(pages, competitions, "Сезон, расписание и состав")
+Rel(pages, commands, "Действие, версия и ключ повтора")
+Rel(pages, protocols, "Формирование и публикация")
+Rel(pages, statistics, "Статистика и табло")
+Rel(pages, materials, "Черновик и публикация [R1]")
+Rel(pages, media, "Видео и фрагмент [R1]")
+Rel(pages, imports, "Пакет и сопоставления [R2]")
+Rel(commands, access, "Проверяет доступ к матчу")
+Rel(commands, competitions, "Проверяет участников и составы")
+Rel(protocols, commands, "Проверяет версию и меняет статус")
+Rel(materials, statistics, "Получает выбранный срез [R1]")
+Rel(imports, commands, "Применяет проверенные действия [R2]")
+Rel(access, orm, "Аккаунты, сеансы и назначения")
+Rel(competitions, orm, "Соревнования, составы и архив")
+Rel(commands, orm, "Транзакция матча и журнал")
+Rel(protocols, orm, "Версии протоколов и подтверждения")
+Rel(statistics, orm, "Только чтение и расчёты")
+Rel(materials, orm, "Черновики и задания [R1]")
+Rel(media, orm, "Видео и попытки [R1]")
+Rel(imports, orm, "Пакеты и сопоставления [R2]")
+Rel(orm, db, "Выполняет запросы и транзакции", "SQL/TCP; Psycopg 3")
+Rel(materials, files, "Проверяет и читает готовый материал [R1]", "Файловый API ОС")
+Rel(media, files, "Сохраняет загрузку и читает готовое видео [R1]", "Файловый API ОС")
+Rel(imports, source, "Получает JSON-пакет [R2]", "HTTPS/JSON")
+
+SHOW_LEGEND()
+caption Связи внутри приложения - вызовы Python. Внешние связи подписаны протоколом.
+@enduml

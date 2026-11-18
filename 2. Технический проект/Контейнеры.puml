@@ -1,0 +1,48 @@
+@startuml
+!define RELATIVE_INCLUDE "."
+!include style.puml
+!include lib/C4/C4_Container.puml
+!include lib/icons/devicons2/django.puml
+!include lib/icons/devicons2/python.puml
+!include lib/icons/devicons2/postgresql.puml
+
+title Спортивная статистика | L2: Контейнеры
+LAYOUT_TOP_DOWN()
+UpdateLegendTitle("Легенда")
+AddElementTag("R1", $bgColor="#FFF7ED", $fontColor="#63320A", $borderColor="#D97706", $borderThickness="2", $legendText="R1: первый релиз")
+AddElementTag("R2", $bgColor="#F5F3FF", $fontColor="#33266B", $borderColor="#8B5CF6", $borderThickness="2", $legendText="R2: второй релиз")
+
+Person(user, "Пользователь в браузере", "Роли и область доступа проверяет сервер")
+System_Ext(mail, "Почтовый сервис", "Принимает письма и уведомления")
+System_Ext(source, "Внешняя спортивная база [R2]", "Пакет данных выбранного поставщика", $tags="R2")
+
+System_Boundary(sport, "Спортивная статистика") {
+    Container(web, "Веб-приложение", "Python 3.13 / Django 5.2 LTS", "HTML-страницы, формы, права, матчи, протоколы, статистика и JSON табло", $sprite="django")
+    Container(short_jobs, "Обработчик писем и материалов", "Python / Django management command", "MVP: почта. R1: отчёты и инфографика. R2: прогнозы. Одна задача за раз", $sprite="python")
+    Container(video_jobs, "Обработчик видео [R1]", "Python / FFmpeg", "Обрабатывает одно видео за раз; сохраняет результат текущей попытки", $sprite="python", $tags="R1")
+    ContainerDb(db, "База данных", "PostgreSQL 18 / Psycopg 3", "Участники, матчи, действия, версии, права, аудит, задания и попытки", $sprite="postgresql")
+    Container(files, "Файлы материалов [R1]", "Закрытый каталог сервера", "Видео, фрагменты, HTML-отчёты и изображения. Сведения и ссылки находятся в БД", $tags="R1")
+    Container(maintenance, "Служебные команды", "Python / pg_dump / планировщик ОС", "Проверка приложения и БД; ежедневная согласованная копия базы и файлов", $sprite="python")
+    Container(backups, "Резервные копии", "Файлы на отдельном носителе", "Последние 7 исправных комплектов; контрольные суммы и версия приложения")
+}
+
+Rel_D(user, web, "Формы и страницы; JSON табло раз в 1 с", "HTTPS")
+Rel_D(web, db, "Данные, команды, версии, аудит и задания", "SQL/TCP; Psycopg 3")
+Rel_R(short_jobs, db, "Задания писем и материалов; попытки и результаты", "SQL/TCP; Psycopg 3")
+Rel_L(video_jobs, db, "Задания видео и состояния попыток", "SQL/TCP; Psycopg 3")
+Rel_L(short_jobs, mail, "Передаёт письма для отправки", "SMTP/TLS")
+Rel_R(web, source, "Получает пакет через адаптер [R2]", "HTTPS/JSON")
+Rel(web, files, "Сохраняет загрузки; проверяет доступ и отдаёт готовые файлы [R1]", "Файловый API ОС")
+Rel(short_jobs, files, "Сохраняет HTML-отчёт или изображение [R1]", "Файловый API ОС")
+Rel(video_jobs, files, "Читает исходное видео и сохраняет обработанный файл [R1]", "Файловый API ОС")
+Rel_Up(maintenance, web, "Проверяет /health раз в минуту", "HTTPS")
+Rel_Up(maintenance, db, "Проверяет БД; создаёт согласованный дамп", "SQL/TCP; pg_dump")
+Rel(maintenance, files, "Копирует завершённые файлы [R1]", "Файловый API ОС")
+Rel(maintenance, backups, "Сохраняет и проверяет комплект; удаляет только устаревшие исправные копии", "Файловый API ОС")
+Rel(maintenance, mail, "Уведомляет администратора об отказе или ошибке копирования", "SMTP/TLS")
+
+Lay_D(db, files)
+Lay_R(files, maintenance)
+Lay_D(maintenance, backups)
+SHOW_LEGEND()
+@enduml
